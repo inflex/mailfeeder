@@ -1,0 +1,88 @@
+.\" Mailfeeder is a tool designed to inject a mailpack back into a MTA (mail server, ie, Sendmail, Postfix) using socket calls. Currently it is used in a variety of projects such as Inflex and Xamime to perform post-filtered queue injection or delivery.
+.TH "mailfeeder" "1" "0.2.5" "Paul L Daniels" "Email tools"
+.SH "NAME"
+.LP 
+mailfeeder \- command line mailpack SMTP delivery tool
+.SH "SYNTAX"
+.LP 
+mailfeeder \-i <mailpack> \-s <sender address> \-r <receiver address> [\-d <local domain>] [\-S <SMTP server>] [\-p <SMTP port>] [ \-c <connection attempts>] [\-v] [\-\-version][\-\-debug][\-\-help]
+.SH "DESCRIPTION"
+.LP 
+Mailfeeder is a tool designed to inject a mailpack back into a MTA (mail server, ie, Sendmail, Postfix) using socket calls. Currently it is used in a variety of projects such as Inflex and Xamime to perform post\-filtered queue injection or delivery.
+.br 
+Mailfeeder is also useful as a stress\-testing and validation tool.
+.SH "OPTIONS"
+.LP 
+.TP 
+\fB\-i <mailpack>
+Mailpack file required to be sent, use '\-' for input from STDIN.  The mailpack must be RFC[2]822 compliant content.\fP
+
+.TP 
+\fB\-s <sender address>
+Sender email address\fP
+
+.TP 
+\fB\-r <receiver address(es)>
+Receiver email address(es). Multiple addresses can be specified so long as they are separated by either a space ' ' or comma ',' and all the addresses are single\-quoted to form one command line parameter (ie, 'r1@domain.com, r2@domain.com')\fP
+
+.TP 
+\fB\-d <local domain>
+Domain to use when sending the HELO string during the SMTP conversation\fP
+
+.TP 
+\fB\-S <SMTP server>
+IP or FQDN of the SMTP server to connect to\fP
+
+.TP 
+\fB\-p <SMTP port>
+Port number to connect to on the SMTP server (default is 25)\fP
+
+.TP 
+\fB\-c <Connection attempts>
+Number of times to attempt to establish a connection to the SMTP server (default is 5)\fP
+
+.TP 
+\fB\-v
+Turn on verbosity\fP
+
+.TP 
+\fB\-x
+Show MTA/MUA converstaion\fP
+
+.TP 
+\fB\-\-version
+Show mailfeeder version\fP
+
+.TP 
+\fB\-\-help
+Show mailfeeder help\fP
+.SH "FILES"
+.LP 
+None
+.SH "ENVIRONMENT VARIABLES"
+.LP 
+None
+.SH "EXAMPLES"
+.LP 
+To send a mailpack to the localhost on port 25:
+.LP 
+mailfeeder \-i mailpack \-s sender@domain.com \-r receiver@thisdomain.com \-S localhost
+.LP 
+To send a mailpack to the localhost on port 10025 with 10 connection attempts:
+.LP 
+mailfeeder \-i mailpack \-s sender@domain.com \-r receiver@thisdomain.com \-S localhost \-c 10 \-p 10025
+.LP 
+To send a mailpack to 192.168.1.2 on port 25, to multiple recipients:
+.LP 
+mailfeeder \-i mailpack \-s sender@domain.com \-r 'r1@domain.com, r2@domain.com, r3@domain.com' \-S 192.168.1.2
+.SH "AUTHORS"
+.LP 
+Paul L Daniels
+.br 
+http://www.pldaniels.com/mailfeeder
+.br 
+http://www.xamime.com
+.br 
+.SH "SEE ALSO"
+.LP 
+ripmime(1)

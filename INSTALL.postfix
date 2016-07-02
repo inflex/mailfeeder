@@ -1,0 +1,33 @@
+--mailfeeder--postfix---------------------------
+
+1. setup postfix normally
+
+2. edit /etc/postfix/main.cf and add (to the end):
+
+        content_filter=inflex
+
+3. edit /etc/postfix/master.cf and add:
+
+        inflex unix - n n - 10 pipe user=inflex argv=/usr/local/inflex/inflex ${sender} ${recipient}
+        localhost:10025 inet n - n - - smtpd -o content_filter=
+
+4. Create a  group "inflex" and an user "inflex" (with it's primary group set as inflex)
+
+        groupadd inflex
+        useradd -g inflex inflex
+
+5. chown -R inflex.inflex /usr/local/inflex
+
+6. Check in the /usr/local/inflex/inflex script, change the mailfeeder line (~760) from:
+
+	${mailfeeder} ${tmpdir}/mailpack localhost 10025 ${sender} ${receivers} localhost
+
+	TO:
+
+	${mailfeeder} -i ${tmpdir}/mailpack -S localhost -p 10025 -d localhost -s ${sender} -r "${receivers}"
+
+Note the "quotes" on the ${receivers} is important!
+
+7. postfix start
+
+-------------------------------------------------

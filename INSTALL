@@ -1,0 +1,31 @@
+--mailfeeder-----------------------------
+General Installation:
+
+	make
+	cp mailfeeder /usr/local/bin (or where ever you prefer)
+	cp mailfeeder.1 /usr/local/man/man1  (or where ever you prefer)
+
+
+
+Inflex installation:
+
+( NOTE - The inflex_mail_deliver modules has been written for Inflex version 2.0.x.x
+( if you are using Inflex v1.0.12.x, or earlier, then please modify the inflex
+( script in a similar way as the way mailfeeder is being used in the 2.0.x.x script
+( as supplied here )
+
+1. Build the mailfeeder program 
+
+	make mailfeeder
+
+2. Copy mailfeeder to /usr/local/inflex (or your inflex install dir)
+
+	cp mailfeeder /usr/local/inflex
+
+3. [For Inflex v2.x ] Copy the new 'inflex_mail_deliver' module to your inflex dir
+
+	cp inflex_mail_deliver /usr/local/inflex
+
+If you are installing to Postfix version of Inflex, 
+	see INSTALL.postfix
+-------------------------------------------------
